@@ -22,7 +22,7 @@ def real_time_validation(event=None):
         result_label.config(text="Moderate password", fg="orange")
     else:
         style.configure("bar.Horizontal.TProgressbar", background="green")
-        result_label.config(text="Strong password", fg="ggreen")
+        result_label.config(text="Strong password", fg="green")
 
     score_label.config(text=f"Score: {score}/5")
 
@@ -36,6 +36,14 @@ def real_time_validation(event=None):
 
 def toggle_password():
     entry.config(show="" if show_var.get() else "*")
+
+
+def clear():
+    entry.delete(0, tk.END)
+    feedback_text.delete("1.0", tk.END)
+    result_label.config(text="")
+    score_label.config(text="")
+    progress["value"] = 0
 
 
 # Window
@@ -83,6 +91,11 @@ feedback_text.pack(pady=10)
 
 # Real-time binding the function real_time_validation with every key release
 entry.bind("<KeyRelease>", real_time_validation)
+
+# Clearing Button
+btn_frame = tk.Frame(root)
+btn_frame.pack(pady=10)
+tk.Button(btn_frame, text="Clear", width=12, command=clear).grid(row=0, column=0)
 
 
 root.mainloop()
