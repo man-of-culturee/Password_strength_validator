@@ -33,4 +33,21 @@ tk.Checkbutton(
     root, text="Show Password", variable=show_var, command=toggle_password
 ).pack()
 
+# Progress bar
+progress = ttk.Progressbar(
+    root, length=300, maximum=5, style="bar.Horizontal.TProgressbar"
+)
+progress.pack(pady=10)
+
+# Result
+result_label = tk.Label(root, text="", font=("Arial", 12))
+result_label.pack()
+
+score_label = tk.Label(root, text="", font=("Arial", 10))
+score_label.pack()
+
+# Feedback
+feedback_text = tk.Text(root, height=10, width=48)
+feedback_text.pack(pady=10)
+
 root.mainloop()
