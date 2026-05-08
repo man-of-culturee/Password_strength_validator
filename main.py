@@ -3,6 +3,10 @@ from tkinter import ttk
 from Password_check import check_password
 
 
+def toggle_password():
+    entry.config(show="" if show_var.get() else "*")
+
+
 # Window
 root = tk.Tk()
 root.title("Password Strength Checker (Real-Time)")
@@ -23,5 +27,10 @@ tk.Label(root, text="Password Strength Checker", font=("Arial", 14, "bold")).pac
 entry = tk.Entry(root, width=30, show="*", font=("Arial", 12))
 entry.pack(pady=5)
 
+# a button that shows the password
+show_var = tk.IntVar()
+tk.Checkbutton(
+    root, text="Show Password", variable=show_var, command=toggle_password
+).pack()
 
 root.mainloop()
