@@ -3,6 +3,37 @@ from tkinter import ttk
 from Password_check import check_password
 
 
+def real_time_validation(event=None):
+    password = entry.get()
+    score, feedback = check_password(password)
+
+    # Update progress bar
+    progress["value"] = score
+
+    # Reset UI
+    feedback_text.delete("1.0", tk.END)
+
+    # Strength display
+    if score <= 2:
+        style.configure("bar.Horizontal.TProgressbar", background="red")
+        result_label.config(text="Weak password", fg="red")
+    elif score <= 4:
+        style.configure("bar.Horizontal.TProgressbar", background="orange")
+        result_label.config(text="Moderate password", fg="orange")
+    else:
+        style.configure("bar.Horizontal.TProgressbar", background="green")
+        result_label.config(text="Strong password", fg="ggreen")
+
+    score_label.config(text=f"Score: {score}/5")
+
+    # Feedback
+    if feedback:
+        for issue in feedback:
+            feedback_text.insert(tk.END, f"- {issue}\n")
+    else:
+        feedback_text.insert(tk.END, "No issues found")
+
+
 def toggle_password():
     entry.config(show="" if show_var.get() else "*")
 
@@ -49,5 +80,9 @@ score_label.pack()
 # Feedback
 feedback_text = tk.Text(root, height=10, width=48)
 feedback_text.pack(pady=10)
+
+# Real-time binding the function real_time_validation with every key release
+entry.bind("<KeyRelease>", real_time_validation)
+
 
 root.mainloop()
